@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "DataSet.hpp"
 #include "IO.hpp"
+#include "Attribute.hpp"
 
 namespace canonical {
 
