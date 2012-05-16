@@ -15,6 +15,9 @@ public:
 	~Rule();
 	void add_antecedent(Instance* instance);
 	void add_consequent(Instance* instance);
+
+	std::list<Instance*>* get_antecedents();
+	std::list<Instance*>* get_consequents();
 };
 
 }

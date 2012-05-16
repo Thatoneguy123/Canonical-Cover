@@ -65,8 +65,8 @@ char* IO::readString()
 		return NULL;
 	}
 
-	// Loop while not end of file or white space
-	while( isalnum(in) && !eof() )
+	// Loop while alphanumeric or puncuation and not end of file
+	while( (ispunct(in) || isalnum(in)) && !eof() )
 	{
 		// Make new buffer if no space is left
 		if(written == sz)

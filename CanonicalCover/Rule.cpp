@@ -10,6 +10,16 @@ Rule::Rule()
 	m_consequent = new list<Instance*>();
 }
 
+list<Instance*>* Rule::get_antecedents()
+{
+	return m_antecedent;
+}
+
+list<Instance*>* Rule::get_consequents()
+{
+	return m_consequent;
+}
+
 void Rule::add_antecedent(Instance* instance)
 {
 	m_antecedent->push_back(instance);

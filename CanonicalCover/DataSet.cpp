@@ -22,7 +22,18 @@ void DataSet::addRuleDefinition(Rule* rule)
 //TODO: Check if instance is valid
 bool DataSet::isValid(Instance* instance)
 {
-	return true;
+	set<Attribute*>::iterator it = m_attributeDef->begin();
+	
+	while(it != m_attributeDef->end())
+	{
+		// Check if instance is valid
+		if( (*it)->isValid(instance) )
+			return true;
+
+		it++;
+	}
+
+	return false;
 }
 
 std::set<Attribute*>* DataSet::get_attributes()

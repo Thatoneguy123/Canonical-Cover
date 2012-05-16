@@ -18,6 +18,7 @@ bool Attribute::isValid(Instance* instance)
 	if( strcmp(instance->get_name(), m_name) )
 		return false;
 
+	// Check to see if there is a matching value
 	while( it != m_values->end() )
 	{
 		if( !strcmp(instance->get_value(),(*it)) )
