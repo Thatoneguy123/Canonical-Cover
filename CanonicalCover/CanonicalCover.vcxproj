@@ -76,6 +76,7 @@
   <ItemGroup>
     <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="CanonicalApplication.cpp" />
+    <ClCompile Include="CanonicalReducer.cpp" />
     <ClCompile Include="DataSet.cpp" />
     <ClCompile Include="DataSetParser.cpp" />
     <ClCompile Include="Instance.cpp" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <ClInclude Include="Attribute.hpp" />
     <ClInclude Include="CanonicalApplication.hpp" />
+    <ClInclude Include="CanonicalReducer.hpp" />
     <ClInclude Include="DataSet.hpp" />
     <ClInclude Include="DataSetParser.hpp" />
     <ClInclude Include="Instance.hpp" />

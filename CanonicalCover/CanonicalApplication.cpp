@@ -5,7 +5,7 @@ namespace canonical {
 CanonicalApplication::CanonicalApplication()
 {
 	m_dataSetParser = new DataSetParser(m_io);
-
+	m_canonicalReducer = new CanonicalReducer();
 	m_io = new IO();
 	m_io->clear();
 }
@@ -16,7 +16,11 @@ void CanonicalApplication::run(int argc, char* argv[])
 
 	try
 	{
+		// Get the data set
 		DataSet* dataSet = m_dataSetParser->parseFromInput();
+		// Reduce the dataset
+		m_canonicalReducer->reduce(dataSet);
+		// Print the data set
 	}
 	catch(std::runtime_error &e)
 	{
@@ -41,14 +45,15 @@ void CanonicalApplication::parseCmdLineArgs(int argc,char* argv[])
 
 void CanonicalApplication::usage()
 {
-	cout << "Program will find the canonical cover of a given data set." << endl;
-	cout << "Input must match the following format.." << endl << endl;
-	cout << "<# Attributes>" << endl;
-	cout << "<attribute1> <value1> <value2> <valueN>" << endl;
-	cout << "<attribute2> <value1> <value2> <valueN>" << endl;
-	cout << "<attributeN> <value1> <value2> <valueN>" << endl;
-	cout << "<# Rules>" << endl;
-	cout << "<attributeX>=<valueN> <attributeY>=<valueN> == <attributeZ>=<valueN> <attributeW>=<valueN>" << endl;
+	cout << "Program will find the canonical cover of a given data set.\n"
+			"Input must match the following format..\n\n"
+			"<# Attributes>\n"
+			"<attribute1> <value1> <value2> <valueN>\n" 
+			"<attribute2> <value1> <value2> <valueN>\n"
+			"<attributeN> <value1> <value2> <valueN>\n"
+			"<# Rules>\n"
+			"<attributeX>=<valueN> <attributeY>=<valueN> == "
+			"<attributeZ>=<valueN> <attributeW>=<valueN>" << endl;
 	
 	m_io->pause();
 	m_io->clear();
@@ -68,6 +73,7 @@ CanonicalApplication::~CanonicalApplication()
 {
 	delete m_dataSetParser;
 	delete m_io;
+	delete m_canonicalReducer;
 }
 
 } // namespace

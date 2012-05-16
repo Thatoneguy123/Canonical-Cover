@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "IO.hpp"
 #include "DataSetParser.hpp"
+#include "CanonicalReducer.hpp"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ class CanonicalApplication
 private:
 	DataSetParser* m_dataSetParser;
 	IO* m_io;
+	CanonicalReducer* m_canonicalReducer;
 
 	void parseCmdLineArgs(int argc, char* argv[]);
 	void usage();
