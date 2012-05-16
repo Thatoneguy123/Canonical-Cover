@@ -4,7 +4,7 @@ namespace canonical {
 
 CanonicalApplication::CanonicalApplication()
 {
-	m_dataSetParser = new DataSetParser();
+	m_dataSetParser = new DataSetParser(m_io);
 
 	m_io = new IO();
 	m_io->clear();
@@ -13,6 +13,17 @@ CanonicalApplication::CanonicalApplication()
 void CanonicalApplication::run(int argc, char* argv[])
 {
 	this->parseCmdLineArgs(argc,argv);
+
+	try
+	{
+		DataSet* dataSet = m_dataSetParser->parseFromInput();
+	}
+	catch(std::runtime_error &e)
+	{
+		cerr << e.what() << endl;
+		char a;
+		cin >> a;
+	}
 }
 
 void CanonicalApplication::parseCmdLineArgs(int argc,char* argv[])

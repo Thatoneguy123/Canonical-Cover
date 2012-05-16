@@ -3,13 +3,18 @@
 
 #include "stdafx.h"
 #include "DataSet.hpp"
+#include "IO.hpp"
 
 namespace canonical {
 
 class DataSetParser
 {
 private:
+	DataSet* m_dataSet;
+	IO* m_io;
+	void parseAttributes();
 public:
+	DataSetParser(IO* io);
 	DataSet* parseFromInput();
 };
 

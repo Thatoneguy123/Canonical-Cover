@@ -14,6 +14,11 @@ public:
 	IO();
 	void pause();
 	void clear();
+	void skipLine();
+	int readInt();
+	bool eof();
+	char* readString();
+	//char* readLine();
 };
 
 }
