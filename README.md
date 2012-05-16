@@ -13,19 +13,19 @@ Supported Format
 
 The program parses data that is CSC 464 Data Mining format. The format is as follows...
 
-	command(#attributes)
-	command(<attribute name1> <attribute value1> <attribute valueN>)
-	command(<attribute nameN> <attribute value1> <attribute valueN>)
-	command(#rules/relations)
-	command(<attribute name>=<attribute value> == <attribute name>=<attribute value>)
+	#attributes
+	<attribute name1> <attribute value1> <attribute valueN>
+	<attribute nameN> <attribute value1> <attribute valueN>
+	#rules/relations
+	<attribute name>=<attribute value> == <attribute name>=<attribute value>
 
 And an example with 'real' data...
 
-	command(2)
-	command(color red blue)
-	command(doors 4 2)
-	command(1)
-	command(color=red == doors=4)
+	2
+	color red blue
+	doors 4 2
+	1
+	color=red == doors=4
 
 Contributing
 ------------
