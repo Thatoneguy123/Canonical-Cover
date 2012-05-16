@@ -24,9 +24,13 @@ void DataSetParser::parseAttributes()
 
 	char* input = m_io->readString();
 	cout << input << endl;
-	
+	m_io->readString();
 	input = m_io->readString();
 	cout << input << endl;
+
+	if(input == NULL)
+		cout << "END OF LINE" << endl;
+
 	cin >> number;
 }
 

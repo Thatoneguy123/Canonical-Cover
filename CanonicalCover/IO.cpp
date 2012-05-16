@@ -42,7 +42,8 @@ int IO::readInt()
 	else
 		throw runtime_error("Error parsing. Expecting INT but found non INT value");
 }
-
+// Reads the next string delimited by whitespace.
+// stops BEFORE \n leaving it in buffer.
 char* IO::readString()
 {
 	if( eof() )
@@ -53,9 +54,17 @@ char* IO::readString()
 	char* temp = (char*)malloc(sizeof(char) * (sz+1));
 	char* buffer;
 	char in;
-
+	in = cin.peek();
+	
 	// Read first char
 	cin.get(in);
+
+	if(in == '\n')
+	{
+		delete temp;
+		return NULL;
+	}
+
 	// Loop while not end of file or white space
 	while( isalnum(in) && !eof() )
 	{
@@ -76,6 +85,10 @@ char* IO::readString()
 		// Assign input to the array
 		temp[written] = in;
 		written++;
+
+		// Quit if new line appears
+		if(cin.peek() == '\n')
+			break;
 
 		cin.get(in);
 	}
