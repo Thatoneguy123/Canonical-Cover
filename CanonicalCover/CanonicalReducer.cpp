@@ -6,7 +6,7 @@ namespace canonical	{
 
 void CanonicalReducer::reduce(DataSet* dataSet)
 {
-	set<Rule*,RuleComp>* rules = dataSet->get_rules();
+	set<Rule*>* rules = dataSet->get_rules();
 	refactorRules(rules);
 	int i;
 	cin >> i;
@@ -14,10 +14,10 @@ void CanonicalReducer::reduce(DataSet* dataSet)
 
 // refactors rules such as A->BC, and EF->GH into
 // A->B, A->C, EF->G, EF->H
-void CanonicalReducer::refactorRules(set<Rule*,RuleComp>* rules)
+void CanonicalReducer::refactorRules(set<Rule*>* rules)
 {
-	set<Rule*,RuleComp>::iterator it = rules->begin();
-	set<Rule*,RuleComp>::iterator temp = rules->begin();
+	set<Rule*>::iterator it = rules->begin();
+	set<Rule*>::iterator temp = rules->begin();
 
 	while( it != rules->end() )
 	{

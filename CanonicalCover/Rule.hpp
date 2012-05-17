@@ -18,21 +18,33 @@ public:
 
 	std::list<Instance*>* get_antecedents();
 	std::list<Instance*>* get_consequents();
-
-	friend class RuleComp;
+	
+	bool operator< (const Rule& other);
+	bool operator== (const Rule& other);
 };
 
-// This is the comparator to sort the rules in the set
-class RuleComp
-{
-public:
-	bool operator()(Rule* r1, Rule* r2)
+}
+
+namespace std{
+	template<>
+	struct less<canonical::Rule*>
 	{
-		// If r1 > r2 return true. This keeps largest sets at beginning.
-		return r1->m_antecedent->size() > r2->m_antecedent->size();
-	}
-};
+		bool operator()(canonical::Rule* r1,canonical::Rule* r2)
+		{
+			size_t r1Size = r1->get_antecedents()->size();
+			size_t r2Size = r2->get_antecedents()->size();
 
+			if( r1Size > r2Size && !(*r1 == *r2))
+				return true;
+			if( r2Size > r1Size && !(*r1 == *r2))
+				return false;
+			if( !(*r1 == *r2) )
+				return true;
+			
+			return false;
+
+		}
+	};
 }
 
 #endif

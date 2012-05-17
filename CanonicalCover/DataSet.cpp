@@ -7,7 +7,7 @@ namespace canonical {
 DataSet::DataSet()
 {
 	m_attributeDef = new set<Attribute*>();
-	m_rules = new set<Rule*,RuleComp>();
+	m_rules = new set<Rule*>();
 }
 
 void DataSet::addAttributeDefinition(Attribute *attrib)
@@ -41,7 +41,7 @@ std::set<Attribute*>* DataSet::get_attributes()
 	return m_attributeDef;
 }
 
-std::set<Rule*,RuleComp>* DataSet::get_rules()
+std::set<Rule*>* DataSet::get_rules()
 {
 	return m_rules;
 }
@@ -60,8 +60,8 @@ DataSet::~DataSet()
 	}
 	delete m_attributeDef;
 
-	set<Rule*,RuleComp>::iterator itt = m_rules->begin();
-	set<Rule*,RuleComp>::iterator ttemp = m_rules->begin();
+	set<Rule*>::iterator itt = m_rules->begin();
+	set<Rule*>::iterator ttemp = m_rules->begin();
 
 	while( itt != m_rules->end())
 	{

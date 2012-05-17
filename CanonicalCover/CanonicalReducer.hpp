@@ -9,7 +9,7 @@ namespace canonical{
 class CanonicalReducer
 {
 private:
-	void refactorRules(std::set<Rule*,RuleComp>* rules);
+	void refactorRules(std::set<Rule*>* rules);
 public:
 	void reduce(DataSet* dataSet);
 };

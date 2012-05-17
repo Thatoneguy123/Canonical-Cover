@@ -21,8 +21,8 @@ void CanonicalApplication::run(int argc, char* argv[])
 		// Reduce the dataset
 		//m_canonicalReducer->reduce(dataSet);
 
-		std::set<Rule*,RuleComp>* rules = dataSet->get_rules();
-		std::set<Rule*,RuleComp>::iterator it = rules->begin();
+		std::set<Rule*>* rules = dataSet->get_rules();
+		std::set<Rule*>::iterator it = rules->begin();
 		
 		int i = 1;
 		while( it != rules->end() )

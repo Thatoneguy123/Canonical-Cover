@@ -24,4 +24,9 @@ char* Instance::get_value()
 	return m_value;
 }
 
+bool Instance::operator==(const Instance& other)
+{
+	return ( !strcmp(m_name,other.m_name) && !strcmp(m_value,other.m_value) );
+}
+
 }
