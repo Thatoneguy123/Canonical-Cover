@@ -4,6 +4,7 @@ namespace canonical {
 
 CanonicalApplication::CanonicalApplication()
 {
+	FILE *file = freopen("test.txt","r",stdin);
 	m_dataSetParser = new DataSetParser(m_io);
 	m_canonicalReducer = new CanonicalReducer();
 	m_io = new IO();
