@@ -57,4 +57,53 @@ Rule::~Rule()
 	delete m_consequent;
 }
 
+bool Rule::operator< (const Rule& other)
+{
+	return this->m_antecedent->size() < other.m_antecedent->size();
+}
+
+bool Rule::operator== (const Rule& other)
+{
+	std::list<Instance*>::iterator oIt = other.m_antecedent->begin();
+	std::list<Instance*>::iterator mIt = this->m_antecedent->begin();
+
+	// Check antecedents
+	if( other.m_antecedent->size() != this->m_antecedent->size() )
+		return false;
+	else
+	{
+		while( mIt != m_antecedent->end() )
+		{
+			if( !((**mIt) == (**oIt)) )
+				return false;
+			else
+			{
+				mIt++; oIt++;
+			}
+		}
+	}
+
+	// Check consequents
+	oIt = other.m_consequent->begin();
+	mIt = this->m_consequent->begin();
+
+	if( other.m_consequent->size() != this->m_consequent->size() )
+		return false;
+	else
+	{
+		while( mIt != m_consequent->end() )
+		{
+			if( (*mIt) != (*oIt) )
+				return false;
+			else
+			{
+				mIt++; oIt++;
+			}
+		}
+	}
+
+	// No cases failed
+	return true;
+}
+
 }

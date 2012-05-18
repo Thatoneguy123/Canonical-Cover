@@ -15,6 +15,8 @@ public:
 	~Instance();
 	char* get_name();
 	char* get_value();
+
+	bool operator==(const Instance& other);
 };
 
 }

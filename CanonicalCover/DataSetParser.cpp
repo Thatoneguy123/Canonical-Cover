@@ -47,12 +47,12 @@ Instance* DataSetParser::parseInstance(char* input)
 	char* value = (char*)malloc(sizeof(char) * (szStr2+1));
 
 	//populate name
-	for(int i = 0; i < szStr1; i++)
+	for(size_t i = 0; i < szStr1; i++)
 		name[i] = input[i];
 	name[szStr1] = '\0';
 
 	//populate value
-	for(int i = 0; i < szStr2; i++)
+	for(size_t i = 0; i < szStr2; i++)
 		value[i] = input[i+szStr1+1];
 	value[szStr2] = '\0';
 
@@ -76,12 +76,12 @@ void DataSetParser::parseRules()
 	int number = m_io->readInt();
 	m_io->skipLine();
 	
-	// Currently parsing antecedents
-	bool antecedent = true;
-
 	// Create the rules
 	for(int i = 0; i < number; i++)
 	{
+		// Parse antecedents first
+		bool antecedent = true;
+
 		Rule* rule = new Rule();
 		// Read the first instance of the rule
 		char* input = m_io->readString();
