@@ -19,21 +19,7 @@ void CanonicalApplication::run(int argc, char* argv[])
 		// Get the data set
 		DataSet* dataSet = m_dataSetParser->parseFromInput();
 		// Reduce the dataset
-		//m_canonicalReducer->reduce(dataSet);
-
-		std::set<Rule*>* rules = dataSet->get_rules();
-		std::set<Rule*>::iterator it = rules->begin();
-		
-		int i = 1;
-		while( it != rules->end() )
-		{
-			cout << "Size of " << i << ": " << (*it)->get_antecedents()->size() << endl;
-			it++;
-			i++;
-		}
-
-		cin >> i;
-		// Print the data set
+		m_canonicalReducer->reduce(dataSet);
 	}
 	catch(std::runtime_error &e)
 	{

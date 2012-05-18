@@ -39,6 +39,44 @@ set<char*>* Attribute::get_values()
 	return m_values;
 }
 
+bool Attribute::operator< (Attribute& other)
+{
+	// Check names first
+	int result = strcmp( get_name(),other.get_name() );
+
+	// this comes before other
+	if( result < 0)
+		return true;
+	if( !result ) // they are equal
+	{
+		std::set<char*>::iterator thisIt = m_values->begin();
+		std::set<char*>::iterator oIt = other.m_values->begin();
+	
+		while( thisIt != m_values->end() 
+			&& oIt != other.m_values->end() )
+		{
+			result = strcmp( (*thisIt), (*oIt) );
+
+			// this value comes after others value
+			if(result > 0)
+				return false;
+			// this value comes before the others value
+			if(result < 0)
+				return true;
+				
+			thisIt++;
+			oIt++;
+		}
+	
+		// r1 comes first since it has less values
+		if(thisIt != m_values->end() )
+			return true;
+
+	}
+
+	return false;
+}
+
 Attribute::~Attribute()
 {
 	delete m_name;

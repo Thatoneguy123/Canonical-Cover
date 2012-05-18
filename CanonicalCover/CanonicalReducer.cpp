@@ -28,12 +28,12 @@ void CanonicalReducer::refactorRules(set<Rule*>* rules)
 		if( (*it)->get_consequents()->size() > 1)
 		{
 			// Break the rule into multiple rules
-			list<Instance*>::iterator conseqIt = (*it)->get_consequents()->begin();
+			set<Instance*>::iterator conseqIt = (*it)->get_consequents()->begin();
 			while(conseqIt != (*it)->get_consequents()->end() )
 			{
 				Rule *rule = new Rule();
 				// Add antecedents to the new rule
-				list<Instance*>::iterator anteIt = (*it)->get_antecedents()->begin();
+				set<Instance*>::iterator anteIt = (*it)->get_antecedents()->begin();
 				while( anteIt != (*it)->get_antecedents()->end() )
 				{
 					rule->add_antecedent( (*anteIt) );

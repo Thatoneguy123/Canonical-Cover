@@ -6,33 +6,33 @@ namespace canonical{
 
 Rule::Rule()
 {
-	m_antecedent = new list<Instance*>();
-	m_consequent = new list<Instance*>();
+	m_antecedent = new set<Instance*>();
+	m_consequent = new set<Instance*>();
 }
 
-list<Instance*>* Rule::get_antecedents()
+set<Instance*>* Rule::get_antecedents()
 {
 	return m_antecedent;
 }
 
-list<Instance*>* Rule::get_consequents()
+set<Instance*>* Rule::get_consequents()
 {
 	return m_consequent;
 }
 
 void Rule::add_antecedent(Instance* instance)
 {
-	m_antecedent->push_back(instance);
+	m_antecedent->insert(instance);
 }
 
 void Rule::add_consequent(Instance* instance)
 {
-	m_consequent->push_back(instance);
+	m_consequent->insert(instance);
 }
 Rule::~Rule()
 {
-	list<Instance*>::iterator it = m_antecedent->begin();
-	list<Instance*>::iterator temp = m_antecedent->begin();
+	set<Instance*>::iterator it = m_antecedent->begin();
+	set<Instance*>::iterator temp = m_antecedent->begin();
 
 	while( it != m_antecedent->end() )
 	{
@@ -56,16 +56,67 @@ Rule::~Rule()
 
 	delete m_consequent;
 }
-
 bool Rule::operator< (const Rule& other)
 {
-	return this->m_antecedent->size() < other.m_antecedent->size();
+	// If this has less antecedents is  less than
+	if( m_antecedent->size() < other.m_antecedent->size() )
+		return true;
+	
+	// if other has more antecedents other is larger
+	if( m_antecedent->size() > other.m_antecedent->size() )
+		return false;
+
+	// They are equal compare each element..
+	set<Instance*>::iterator mIt = m_antecedent->begin();
+	set<Instance*>::iterator oIt = other.m_antecedent->begin();
+
+	while( mIt != m_antecedent->end()
+		&& oIt != other.m_antecedent->end())
+	{
+		// If this antecedent is less than other
+		// return true
+		if( (**mIt) < (**oIt) )
+			return true;
+		else // if they are not equal it means the other
+			// was larger
+			if( !(**mIt == **oIt) )
+				return false;
+		mIt++; oIt++;
+	}
+
+	// If this has less consequents it is  less than
+	if( m_consequent->size() < other.m_consequent->size() )
+		return true;
+	
+	// if other has more consequents other is larger
+	if( m_consequent->size() > other.m_consequent->size() )
+		return false;
+
+	//Check consequents
+	mIt = m_consequent->begin();
+	oIt = other.m_consequent->begin();
+
+	while( mIt != m_consequent->end()
+		&& oIt != other.m_consequent->end())
+	{
+		// If this antecedent is less than other
+		// return true
+		if( (**mIt) < (**oIt) )
+			return true;
+		else // if they are not equal it means the other
+			// was larger
+			if( !(**mIt == **oIt) )
+				return false;
+		mIt++; oIt++;
+	}
+
+	return false;
 }
 
 bool Rule::operator== (const Rule& other)
 {
-	std::list<Instance*>::iterator oIt = other.m_antecedent->begin();
-	std::list<Instance*>::iterator mIt = this->m_antecedent->begin();
+	std::set<Instance*>::iterator oIt = other.m_antecedent->begin();
+	std::set<Instance*>::iterator mIt = this->m_antecedent->begin();
 
 	// Check antecedents
 	if( other.m_antecedent->size() != this->m_antecedent->size() )
