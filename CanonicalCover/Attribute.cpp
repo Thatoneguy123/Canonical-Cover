@@ -21,11 +21,21 @@ bool Attribute::isValid(Instance* instance)
 	// Check to see if there is a matching value
 	while( it != m_values->end() )
 	{
+		// It's valid, replace the instance parameter
+		// to use pointers to memory already allocated
+		// by this attribute
 		if( !strcmp(instance->get_value(),(*it)) )
+		{
+			// Replace the instances value and name
+			// with the memory already allocated
+			// for this attribute
+			instance->set_name(m_name);
+			instance->set_value(*it);
 			return true;
+		}
 		it++;
 	}
-
+	// Does not free memory if Instance is not valid.
 	return false;
 }
 

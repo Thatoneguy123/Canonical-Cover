@@ -8,10 +8,12 @@ Instance::Instance(char* name, char* value)
 	m_value = value;
 }
 
+// The memory used by m_name and m_value
+// is a pointer to the values in an attribute object
+// it is not the Instances responsibility to free
 Instance::~Instance()
 {
-	delete m_name;
-	delete m_value;
+
 }
 
 char* Instance::get_name()
@@ -48,6 +50,18 @@ bool Instance::operator<(Instance& other)
 bool Instance::operator==(const Instance& other)
 {
 	return ( !strcmp(m_name,other.m_name) && !strcmp(m_value,other.m_value) );
+}
+
+void Instance::set_name(char* name)
+{
+	delete m_name;
+	m_name = name;
+}
+
+void Instance::set_value(char* value)
+{
+	delete m_value;
+	m_value = value;
 }
 
 }

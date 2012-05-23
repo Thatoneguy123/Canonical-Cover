@@ -15,6 +15,8 @@ public:
 	~Instance();
 	char* get_name();
 	char* get_value();
+	void set_name(char* name);
+	void set_value(char* value);
 
 	bool operator==(const Instance& other);
 	bool operator< (Instance& other);

@@ -64,6 +64,10 @@ Instance* DataSetParser::parseInstance(char* input)
 		return(instance);
 	else
 	{
+		// delete the invalid name and value
+		delete name;
+		delete value;
+		// delete the instance
 		delete instance;
 		throw runtime_error("Error parsing rule. No attribute defintion "
 			"exists for instance.");

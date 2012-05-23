@@ -7,7 +7,10 @@ namespace canonical	{
 void CanonicalReducer::reduce(DataSet* dataSet)
 {
 	set<Rule*>* rules = dataSet->get_rules();
+	// Order is dependent
 	refactorRules(rules);
+	removeReflexivity(rules);
+	// End order dependent
 	int i;
 	cin >> i;
 }
@@ -56,5 +59,35 @@ void CanonicalReducer::refactorRules(set<Rule*>* rules)
 			it++;
 	}
 }
+
+// Removes rules that match the reflexivity rule
+// I.e. if AB->B the rule will be deleted.
+void CanonicalReducer::removeReflexivity(std::set<Rule*>* rules)
+{
+	set<Rule*>::iterator it = rules->begin();
+	set<Rule*>::iterator temp = rules->begin();
+
+	while( it != rules->end() )
+	{
+		// Reset temp to the current element
+		temp = it;
+
+		// Get the current rules consequent. Only one consequent at this point
+		// since refactoring occurs first.
+		set<Instance*>::iterator conseqIt = (*it)->get_consequents()->begin();
+		// Iterate through all antecedents. If any of them match the consequent,
+		// delete the rule
+		set<Instance*>::iterator anteIt = (*it)->get_antecedents()->begin();
+		while(anteIt != (*it)->get_antecedents()->end() )
+		{
+			// If they are equal delete this rule
+			if( (*anteIt) == (*conseqIt) )
+			{
+
+			}
+		}
+	}
+}
+
 
 }
