@@ -78,15 +78,31 @@ void CanonicalReducer::removeReflexivity(std::set<Rule*>* rules)
 		// Iterate through all antecedents. If any of them match the consequent,
 		// delete the rule
 		set<Instance*>::iterator anteIt = (*it)->get_antecedents()->begin();
-		while(anteIt != (*it)->get_antecedents()->end() )
+		bool removeRule = false;
+		while(anteIt != (*it)->get_antecedents()->end() && !removeRule)
 		{
-			// If they are equal delete this rule
-			if( (*anteIt) == (*conseqIt) )
-			{
-
-			}
+			// If they are equal set flag to delete the rule
+			if( (**anteIt) == (**conseqIt) )
+				removeRule = true;
+			anteIt++;
 		}
+
+		// Delete the rule
+		if(removeRule)
+		{
+			temp++;
+			rules->erase(it);
+			// Revalidate it
+			it=temp;
+		}
+		else
+			it++;
 	}
+}
+
+void CanonicalReducer::reduceRules(std::set<Rule*>* rules)
+{
+
 }
 
 

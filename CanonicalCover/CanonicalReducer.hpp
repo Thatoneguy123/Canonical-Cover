@@ -11,6 +11,7 @@ class CanonicalReducer
 private:
 	void refactorRules(std::set<Rule*>* rules);
 	void removeReflexivity(std::set<Rule*>* rules);
+	void reduceRules(std::set<Rule*>* rules);
 public:
 	void reduce(DataSet* dataSet);
 };
