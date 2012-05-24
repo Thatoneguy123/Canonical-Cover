@@ -10,6 +10,7 @@ void CanonicalReducer::reduce(DataSet* dataSet)
 	// Order is dependent
 	refactorRules(rules);
 	removeReflexivity(rules);
+	reduceRules(rules);
 	// End order dependent
 	int i;
 	cin >> i;
@@ -102,8 +103,115 @@ void CanonicalReducer::removeReflexivity(std::set<Rule*>* rules)
 
 void CanonicalReducer::reduceRules(std::set<Rule*>* rules)
 {
+	// Get the iterator to progress through rules as well as temp to remove rules.
+	// Use reverse since set organizes the rules in order of least antecedents to most
+	set<Rule*>::reverse_iterator temp = rules->rbegin();
+	set<Rule*>::reverse_iterator currentRule = rules->rbegin();
+	// Check all the rules atleast once
+	while( currentRule != rules->rend() )
+	{
+		set<Instance*> result;
+		result.clear();
+		// Get the current rule
+		temp = currentRule;
+		
+		// Assign 'a' to result
+		getResult(result,(*currentRule)->get_antecedents());
 
+		
+		// Iterate throgh all the rules checking to see if they can
+		// be appended to result
+		set<Rule*>::reverse_iterator inIt = rules->rbegin();
+		while( inIt != rules->rend() )
+		{
+			// If inIt isn't the current rule, check to see if it can be added
+			// to result
+			if( inIt != currentRule && addToResult( result,(*inIt) ) )
+			{
+				// reset the iterator to the beginning and start checking
+				// all the rules again
+				inIt = rules->rbegin();
+			}
+			else
+				inIt++;
+		}
+
+		// Check if rule can be removed
+		if( removeRule(result, *currentRule) )
+		{
+			temp++;
+			// Erase the element. Reverse iterator is off by -1
+			// as compared to the position of the base iterator
+			rules->erase( (++currentRule).base() );
+			currentRule = temp;
+		}
+		else // Rule stays
+			currentRule++;
+	}
 }
 
+bool CanonicalReducer::removeRule(std::set<Instance*>& result, Rule* rule)
+{
+	// Get the consequent
+	Instance* consequent = *rule->get_consequents()->begin();
+	
+	if( result.find(consequent) != result.end())
+		return true;
+	else
+		return false;
+}
+
+bool CanonicalReducer::addToResult(std::set<Instance*>& result, Rule* rule)
+{
+	// Get first element in result
+	set<Instance*>::iterator it = result.begin();
+	bool matched = false;
+
+	// Check all elements in result and see if there is a matching value in the
+	// rules antecedents
+	while( it != result.end() && !matched)
+	{
+		// Get first element in the antecedents
+		set<Instance*>::iterator rIt = rule->get_antecedents()->begin();
+
+		while( rIt != rule->get_antecedents()->end()  && !matched)
+		{
+			// Check if they are equal
+			if( (**it) == (**rIt) )
+				matched = true;
+			else
+				rIt++;
+		}
+
+		// Move to next element in result and check it
+		it++;
+	}
+
+	// Check if there was a match
+	if( matched )
+	{
+		pair<set<Instance*>::iterator,bool> ret;
+		// Add the consequent to result
+		ret = result.insert( *(rule->get_consequents()->begin()) );
+
+		return ret.second;
+	}
+	
+	return false;
+	
+}
+
+// Assigns all instances to the result set. Used when finding the reduced form
+void CanonicalReducer::getResult(set<Instance*> &result, set<Instance*>* instances)
+{
+	set<Instance*>::iterator it = instances->begin();
+
+	// Add all the elements from instance into result
+	while( it != instances->end() )
+	{
+		result.insert( (*it) );
+		it++;
+	}
+}
 
 }
