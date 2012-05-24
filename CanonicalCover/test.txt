@@ -1,0 +1,15 @@
+5
+A A
+B B
+C C
+D D
+E E
+8
+A=A B=B == C=C
+A=A E=E == D=D
+C=C == D=D
+C=C == A=A
+C=C == B=B
+D=D == B=B
+D=D == E=E
+B=B == A=A

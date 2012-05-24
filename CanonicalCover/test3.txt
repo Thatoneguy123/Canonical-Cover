@@ -1,0 +1,10 @@
+5
+A A
+B B
+C C
+D D
+E E
+3
+B=B == A=A C=C
+C=C D=D == B=B
+D=D == A=A

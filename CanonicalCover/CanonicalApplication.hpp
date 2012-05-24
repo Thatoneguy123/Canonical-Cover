@@ -19,6 +19,7 @@ private:
 
 	void parseCmdLineArgs(int argc, char* argv[]);
 	void usage();
+	void printSet(DataSet* dataSet);
 public:
 	CanonicalApplication();
 	~CanonicalApplication();

@@ -142,8 +142,8 @@ void CanonicalReducer::reduceRules(std::set<Rule*>* rules)
 			temp++;
 			// Erase the element. Reverse iterator is off by -1
 			// as compared to the position of the base iterator
-			rules->erase( (++currentRule).base() );
-			currentRule = temp;
+			set<Rule*>::iterator tempIter = rules->erase( (++currentRule).base() );			
+			currentRule = std::set<Rule*>::reverse_iterator(tempIter);
 		}
 		else // Rule stays
 			currentRule++;
@@ -167,6 +167,8 @@ bool CanonicalReducer::addToResult(std::set<Instance*>& result, Rule* rule)
 	set<Instance*>::iterator it = result.begin();
 	bool matched = false;
 
+	// Get the number of antecedents that much be matched
+	int numToMatch = rule->get_antecedents()->size();
 	// Check all elements in result and see if there is a matching value in the
 	// rules antecedents
 	while( it != result.end() && !matched)
@@ -178,7 +180,10 @@ bool CanonicalReducer::addToResult(std::set<Instance*>& result, Rule* rule)
 		{
 			// Check if they are equal
 			if( (**it) == (**rIt) )
+			{
 				matched = true;
+				numToMatch--;
+			}
 			else
 				rIt++;
 		}
@@ -188,7 +193,7 @@ bool CanonicalReducer::addToResult(std::set<Instance*>& result, Rule* rule)
 	}
 
 	// Check if there was a match
-	if( matched )
+	if( matched && numToMatch == 0 )
 	{
 		pair<set<Instance*>::iterator,bool> ret;
 		// Add the consequent to result

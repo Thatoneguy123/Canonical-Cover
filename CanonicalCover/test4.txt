@@ -1,0 +1,11 @@
+5
+A A
+B B
+C C
+D D
+E E
+4
+B=B C=C == D=D
+E=E == A=A
+A=A B=B == C=C
+C=C == B=B

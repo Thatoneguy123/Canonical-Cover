@@ -4,7 +4,7 @@ namespace canonical {
 
 CanonicalApplication::CanonicalApplication()
 {
-	FILE *file = freopen("test.txt","r",stdin);
+	FILE *file = freopen("test4.txt","r",stdin);
 	m_dataSetParser = new DataSetParser(m_io);
 	m_canonicalReducer = new CanonicalReducer();
 	m_io = new IO();
@@ -21,6 +21,8 @@ void CanonicalApplication::run(int argc, char* argv[])
 		DataSet* dataSet = m_dataSetParser->parseFromInput();
 		// Reduce the dataset
 		m_canonicalReducer->reduce(dataSet);
+
+		printSet(dataSet);
 	}
 	catch(std::runtime_error &e)
 	{
@@ -69,6 +71,37 @@ void CanonicalApplication::usage()
 	m_io->clear();
 }
 
+void CanonicalApplication::printSet(DataSet* dataSet)
+{
+	set<Rule*>::iterator it = dataSet->get_rules()->begin();
+
+	while( it != dataSet->get_rules()->end() )
+	{
+		set<Instance*>::iterator anteIt = (*it)->get_antecedents()->begin();
+		set<Instance*>::iterator conseIt = (*it)->get_consequents()->begin();
+
+		while( anteIt != (*it)->get_antecedents()->end() )
+		{
+			cout << (*anteIt)->get_name() << "=" << (*anteIt)->get_value() << " ";
+			anteIt++;
+		}
+
+		cout << "== ";
+
+		while( conseIt != (*it)->get_consequents()->end() )
+		{
+			cout << (*conseIt)->get_name() << "=" << (*conseIt)->get_value() << " ";
+			conseIt++;
+		}
+
+		cout << endl;
+		it++;
+	}
+
+	while(true)
+	{
+	}
+}
 CanonicalApplication::~CanonicalApplication()
 {
 	delete m_dataSetParser;
