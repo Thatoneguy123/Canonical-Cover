@@ -17,10 +17,19 @@ public:
 	void skipLine();
 	int readInt();
 	bool eof();
+	char readChar();
 	char* readString();
 	//char* readLine();
 };
 
 }
 
+#endif
+
+#ifdef __linux__
+	#define CLEARSCREEN clear()
+#endif
+
+#ifdef _WIN32
+	#define CLEARSCREEN system("cls")
 #endif

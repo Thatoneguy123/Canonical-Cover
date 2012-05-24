@@ -4,7 +4,6 @@ namespace canonical {
 
 CanonicalApplication::CanonicalApplication()
 {
-	FILE *file = freopen("test4.txt","r",stdin);
 	m_dataSetParser = new DataSetParser(m_io);
 	m_canonicalReducer = new CanonicalReducer();
 	m_io = new IO();
@@ -42,9 +41,15 @@ void CanonicalApplication::parseCmdLineArgs(int argc,char* argv[])
 		// Check for help flag
 		if( !strcmp(argv[i],"-h") || !strcmp(argv[i],"--help"))
 			this->usage();
+		if( !strcmp(argv[i],"-f") || !strcmp(argv[i],"--F"))
+			this->getFile(argv[++i]);
 	}
 }
 
+void CanonicalApplication::getFile(char* fileArg)
+{
+	FILE *file = freopen(fileArg,"r",stdin);
+}
 void CanonicalApplication::usage()
 {
 	cout << "Program will find the canonical cover of a given data set.\n"

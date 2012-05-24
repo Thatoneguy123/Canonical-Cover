@@ -98,6 +98,14 @@ char* IO::readString()
 	return temp;
 }
 
+char IO::readChar()
+{
+	char buf;
+	cin.get(buf);
+	
+	return(buf);
+}
+
 bool IO::eof()
 {
 	return cin.eofbit == cin.peek();
