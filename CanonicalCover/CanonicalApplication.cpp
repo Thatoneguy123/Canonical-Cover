@@ -30,15 +30,18 @@ void CanonicalApplication::run(int argc, char* argv[])
 			getFile(fileName);
 			delete fileName;
 		}
-
 		try
 		{
 			// Get the data set
+			cerr << "Parsing data set...";
 			dataSet = m_dataSetParser->parseFromInput();
+			cerr << " Data set parsed successfully!\n";
 			// end the parse session
 			endParseSession();
 			// Reduce the dataset
+			cerr << "Reducing data set...";
 			m_canonicalReducer->reduce(dataSet);
+			cerr << " Data set reduced successfully!\n";
 			printSet(dataSet);
 		}
 		catch(std::runtime_error &e)
@@ -47,7 +50,6 @@ void CanonicalApplication::run(int argc, char* argv[])
 			cerr << e.what() << endl;
 			m_io->pause();
 		}
-		delete dataSet;
 		// Possible mem leak?...
 		// m_file has been closed at this point however it it had been opened..
 		m_file = NULL;
@@ -178,7 +180,7 @@ void CanonicalApplication::printSet(DataSet* dataSet)
 			if( !first )
 			{
 				cout << " ";
-				outputFile << " " ;
+				//outputFile << " " ;
 			}
 			first = false;
 			cout << (*anteIt)->get_name() << "=" << (*anteIt)->get_value();
