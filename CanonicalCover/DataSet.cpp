@@ -19,7 +19,6 @@ void DataSet::addRuleDefinition(Rule* rule)
 {
 	m_rules->insert(rule);
 }
-//TODO: Check if instance is valid
 bool DataSet::isValid(Instance* instance)
 {
 	set<Attribute*>::iterator it = m_attributeDef->begin();

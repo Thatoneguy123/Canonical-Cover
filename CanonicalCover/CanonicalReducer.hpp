@@ -9,8 +9,14 @@ namespace canonical{
 class CanonicalReducer
 {
 private:
+	// Refactors rules by expanding them. I.e changes AB->CD
+	// into the rules AB->C and AB-D
 	void refactorRules(std::set<Rule*>* rules);
+	// Removes rules that match the reflexitivity rule. I.e. changes
+	// ABC->C, ABC->D, into ABC->D
 	void removeReflexivity(std::set<Rule*>* rules);
+	// Reduces the rules by finding rules that are redundant. This is the actual
+	// core of the Canonical Reduction algorithm
 	void reduceRules(std::set<Rule*>* rules);
 
 	// This creates the 'result' set which is used when trying to find if the
@@ -27,6 +33,8 @@ private:
 	// the original set of rules
 	bool removeRule(std::set<Instance*>& result, Rule* rule);
 public:
+	// Public accessor which begins the chain of methods that
+	// will reduce a data set.
 	void reduce(DataSet* dataSet);
 };
 

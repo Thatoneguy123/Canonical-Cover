@@ -45,7 +45,7 @@ Rule::~Rule()
 	delete m_antecedent;
 
 	it = m_consequent->begin();
-	temp = m_consequent->end();
+	temp = m_consequent->begin();
 	while( it != m_consequent->end() )
 	{
 		temp++;

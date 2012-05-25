@@ -5,12 +5,13 @@ namespace canonical {
 
 DataSetParser::DataSetParser(IO* io)
 {
-	m_dataSet = new DataSet();
 	m_io = io;
 }
 
 DataSet* DataSetParser::parseFromInput()
 {
+	m_dataSet = new DataSet();
+
 	parseAttributes();
 	parseRules();
 

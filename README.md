@@ -27,6 +27,14 @@ And an example with 'real' data...
 	1
 	color=red == doors=4
 
+Usage
+------------
+
+CanonicalCover.exe -h
+CanonicalCover.exe -help
+CanonicalCover.exe -F "test.txt"
+CanonicalCover.exe -f "test.txt"
+
 Contributing
 ------------
 

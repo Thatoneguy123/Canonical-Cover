@@ -12,8 +12,7 @@ void CanonicalReducer::reduce(DataSet* dataSet)
 	removeReflexivity(rules);
 	reduceRules(rules);
 	// End order dependent
-	int i;
-	cin >> i;
+
 }
 
 // refactors rules such as A->BC, and EF->GH into
@@ -33,6 +32,7 @@ void CanonicalReducer::refactorRules(set<Rule*>* rules)
 		{
 			// Break the rule into multiple rules
 			set<Instance*>::iterator conseqIt = (*it)->get_consequents()->begin();
+			// for each consqeunt make a new rule
 			while(conseqIt != (*it)->get_consequents()->end() )
 			{
 				Rule *rule = new Rule();
@@ -40,12 +40,13 @@ void CanonicalReducer::refactorRules(set<Rule*>* rules)
 				set<Instance*>::iterator anteIt = (*it)->get_antecedents()->begin();
 				while( anteIt != (*it)->get_antecedents()->end() )
 				{
-					rule->add_antecedent( (*anteIt) );
+					// Create a new instance and add to antecedents
+					rule->add_antecedent( new Instance( (*anteIt)->get_name(), (*anteIt)->get_value() ) );
 					anteIt++;
 				}
 
 				// Add the consequent to the new rule
-				rule->add_consequent( (*conseqIt) );
+				rule->add_consequent( new Instance( (*conseqIt)->get_name(), (*conseqIt)->get_value() ));
 				// Add the new rule to the rules set
 				rules->insert(rule);
 				conseqIt++;
@@ -53,6 +54,7 @@ void CanonicalReducer::refactorRules(set<Rule*>* rules)
 
 			temp++;
 			// Remove the old rule
+			delete (*it);
 			rules->erase(it);
 			it = temp;
 		}
@@ -92,6 +94,7 @@ void CanonicalReducer::removeReflexivity(std::set<Rule*>* rules)
 		if(removeRule)
 		{
 			temp++;
+			delete (*it);
 			rules->erase(it);
 			// Revalidate it
 			it=temp;
@@ -140,9 +143,10 @@ void CanonicalReducer::reduceRules(std::set<Rule*>* rules)
 		if( removeRule(result, *currentRule) )
 		{
 			temp++;
-			// Erase the element. Reverse iterator is off by -1
+			// Erase & delete the element. Reverse iterator is off by -1
 			// as compared to the position of the base iterator
-			set<Rule*>::iterator tempIter = rules->erase( (++currentRule).base() );			
+			delete (*(++currentRule).base());
+			set<Rule*>::iterator tempIter = rules->erase( (currentRule).base() );			
 			currentRule = std::set<Rule*>::reverse_iterator(tempIter);
 		}
 		else // Rule stays
