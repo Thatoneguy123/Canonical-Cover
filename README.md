@@ -30,10 +30,10 @@ And an example with 'real' data...
 Usage
 ------------
 
-CanonicalCover.exe -h
-CanonicalCover.exe -help
-CanonicalCover.exe -F "test.txt"
-CanonicalCover.exe -f "test.txt"
+	CanonicalCover.exe -h
+	CanonicalCover.exe -help
+	CanonicalCover.exe -F "test.txt"
+	CanonicalCover.exe -f "test.txt"
 
 Contributing
 ------------
